@@ -25,8 +25,8 @@ app.get('/', (requisition, reposta) => {
 
 });
 
-const DB_USER = 'Vitor'; 
-const DB_PASSWORD = encodeURIComponent('H4eT.kP2Rb4x@Hq'); 
+const DB_USER = 'userNULL'; 
+const DB_PASSWORD = encodeURIComponent('bkjhguygo2326hkhjg'); 
 
 mongoose.connect(
     `mongodb+srv://${DB_USER}:${DB_PASSWORD}@apicluster.l3zpv5i.mongodb.net/bancodaapi?retryWrites=true&w=majority`
