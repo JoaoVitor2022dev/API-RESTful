@@ -90,7 +90,7 @@ router.post('/', async ( requisition , response ) => {
 
       try {
  
-       const updatedPerson =  await Person.updateOne({_id: id}, person);
+       const updatedPerson =  await Person.updateOne({_id:id}, person);
 
        console.log(updatedPerson);
 
@@ -107,5 +107,28 @@ router.post('/', async ( requisition , response ) => {
       }
 })
  
+
+  // delete - deletar dados 
+
+ router.delete('/:id', async (requisition, answer ) => {
+    
+   const id = requisition.params.id; 
+   const person = await Person.findOne({_id: id}) 
+
+   if (!person) {
+      reposta.status(422).json({ message: 'Usuario nao encontrado'}); 
+       return;
+   }
+
+ try {
+   
+  const person = await Person.deleteOne({_id: id})
+
+  answer.status(200).json({message: "Usuario removido com sucesso!"}); 
+
+ } catch (error) {
+   answer.status(500).json({error: error}); 
+ }
+ })
 
  module.exports = router; 
