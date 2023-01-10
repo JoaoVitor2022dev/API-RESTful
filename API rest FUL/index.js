@@ -1,71 +1,35 @@
 // configuraçao inicial 
 
+require('dotenv').config()
 const express = require('express'); 
 const app =  express(); 
 const mongoose = require('mongoose');
+const personRoutes = require("./routes/personRoutes"); 
 
-const Person = require('./models/Person');
-
-// forma de ler JSON / middlewares
-
+//  middlewares - config de express
 app.use( 
     express.urlencoded({
         extended: true, 
     }), 
 ) 
 
+// forma que o express vai se comunicar... 
 app.use(express.json()) 
 
-
-// rotas da API 
-app.post('/person', async ( requisition , response ) => {
-   // requisition.body  
-
-    // {name: 'vitor lima', salary: 3000 , approved: true } 
-    const {name, salary , approved} = requisition.body; 
-
-    // verificaçao de name 
-
-    if (!name) {
-        response.status(422).json({error: 'O nome é obrigatorio...'})
-    }
-    if (!salary) {
-        response.status(422).json({error: 'O salario é obrigatorio...'})
-    } 
- 
-    const person = {
-        name, 
-        salary, 
-        approved,
-    }
-
-     try {        
-        // criando dados 
-        await Person.create(person); 
-
-        response.status(201).json({message: 'Pessoa inserindo no sistema com sucesso!'}); 
-         console.log('inserindo dados com sucesso!');
-
-     } catch (error) {
-        response.status(500).json({error: error})
-     }
-     
-}); 
+// rotas da API
+app.use('/person', personRoutes);
 
 
 // rota inicial / endPoint 
 app.get('/', (requisition, reposta) => {
    // mostrar requisition 
-   
    // mostrar reposta 
    reposta.json({menssage: 'ola exprexx'}); 
-
 });
 
-// conection com mogoose
-
-const DB_USER = 'ehfbwjhebfjh'; 
-const DB_PASSWORD = encodeURIComponent('fqiweho fiuqehw'); 
+// conection com mogoose para pode acessar o mongo DB
+const DB_USER = process.env.DB_USER
+const DB_PASSWORD = encodeURIComponent(process.env.DB_PASSWORD)  
 
 mongoose.set('strictQuery', true); 
 mongoose.connect(
@@ -74,9 +38,4 @@ mongoose.connect(
         console.log('conectamos com o mongoDB');
         app.listen(4000); 
     }).catch( (err) => { console.log(err);})
-
-
-
-
-
 
