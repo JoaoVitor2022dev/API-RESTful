@@ -9,7 +9,7 @@
 ## Funcionalidades
 
 - CRUD - CREATE READ UPDATE DELETE 
-- Basicamente, serve funções simples como criar registros, analisar dados, editar e atualizar e, finalmente, excluir registros e dados no banco de dados.
+- Basically, it serves simple functions like creating records, analyzing data, editing and updating, and finally deleting records and data in the database.
 
 
 ## 🚀 Sobre mim
